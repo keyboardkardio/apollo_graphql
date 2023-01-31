@@ -1,6 +1,30 @@
 const { ApolloServer } = require('apollo-server');
+const resolvers = require('./resolvers');
 const typeDefs = require('./schema');
+const TrackAPI = require('./datasources/track-api');
 
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    /* Connect server with `TrackAPI` and enable access to 
+    `datasources.trackAPI` (along with its methods) from the `context` 
+    parameters of the resolvers. */
+    dataSources: () => {
+        return {
+            trackAPI: new TrackAPI(),
+        };
+    },
+});
+
+server.listen().then(() => {
+    console.log(`
+        🚀 Server is running!
+        🔉 Listening on port 4000
+        📭 Query at http://localhost:4000
+    `);
+});
+
+/*
 const mocks = {
   Query: () => ({
     tracksForHome: () => [...new Array(9)],
@@ -19,16 +43,4 @@ const mocks = {
     modulesCount: () => 6,
   }),
 };
-
-const server = new ApolloServer({
-  typeDefs,
-  mocks,
-});
-
-server.listen().then(() => {
-  console.log(`
-    🚀  Server is running!
-    🔉  Listening on port 4000
-    📭  Query at http://localhost:4000
-`);
-});
+*/
