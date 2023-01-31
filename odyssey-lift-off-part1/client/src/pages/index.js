@@ -4,9 +4,9 @@ import { Router } from '@reach/router';
 import Tracks from './tracks';
 
 export default function Pages() {
-  return (
-    <Router primary={false} component={Fragment}>
-      <Tracks path="/" />
-    </Router>
-  );
+    return (
+        <Router primary={false} component={Fragment}>
+            <Tracks path='/' />
+        </Router>
+    );
 }

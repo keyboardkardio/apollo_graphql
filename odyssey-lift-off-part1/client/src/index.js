@@ -12,9 +12,11 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyles />
-    <Pages />
-  </React.StrictMode>,
-  document.getElementById('root')
+    /* Use React Context API to make the configured Apollo Client instance 
+    available throughout a React component tree. */
+    <ApolloProvider client={client}>
+        <GlobalStyles />
+        <Pages />
+    </ApolloProvider>,
+    document.getElementById('root')
 );
